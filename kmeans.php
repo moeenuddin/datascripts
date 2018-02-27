@@ -9,6 +9,8 @@ $arr = array();
 
 for($i=0; $i<50; $i++){
 
+  $arr[$i] = array(rand(0,10),rand(0,10),rand(0,10));
+  /*
   if($i%5)
    $arr[$i] = array(1,2,3);
   else
@@ -25,7 +27,7 @@ for($i=0; $i<50; $i++){
    $arr[$i] = array(3,2,1);
   else
    $arr[$i] = array(2,rand(2,7),rand(0,10));
-  
+  */
 }
 
 //print_r($arr[0]);
@@ -37,16 +39,23 @@ $f = kmeans($arr);
 // cluster assignment
 
 $c = array();
-$c2 =array();
+$c2[1] =array();
+$c2[2] =array();
+
 
 foreach($f as $i => $v){
   
   foreach($v as $j => $p){
      
-      if($i!=$j){
-        $c[$i][$j] = $p>0?1:2;
+      if($i!=$j)
+      {
+              
+        $c[$i][1] += $p==1?1:0;
+        $c[$i][2] += $p==0?1:0;  
+        $c[$i][3] += $p==2?1:0;
+        $c[$i][4] += $p==3?1:0;        
   
-              if(!in_array($i,$c2[$p>0?1:2])){
+              /*      if(!in_array($i,$c2[$p>0?1:2])){
                  $c2[$p>0?1:2][]=$i;                
               }
               
@@ -54,7 +63,7 @@ foreach($f as $i => $v){
               if(!in_array($j,$c2[$p>0?1:2])){
                  $c2[$p>0?1:2][]=$j;
               }
-              
+              */
              
                
         }
@@ -62,7 +71,7 @@ foreach($f as $i => $v){
 }
 
 echo "<pre>";
-print_r($c2);
+print_r($c);
 
 
 function kmeans($arr){
